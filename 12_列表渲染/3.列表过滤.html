@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤</title>
+
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div id="root">
+            <h2>人员列表</h2>
+            <input type="text" placeholder="please enter your name" v-model='keyWords'>
+            <ul>
+                <!-- 遍历数组 -->
+                <li v-for="p in filterPersons" :key="p.id">{{p.name}}-{{p.age}}</li>
+                <!-- a为当前项 b为下标 c为undefined  页面不显示 key也可以为index-->
+                <!-- in 也可以改成of -->
+
+
+            </ul>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        // #region  #endregion 可以实现折叠
+        // 用watch实现
+        // const vm = new Vue({
+        //     el: '#root',
+        //     data: {
+        //         keyWords: '',
+        //         persons: [{
+        //                 id: '01',
+        //                 name: '马冬梅',
+        //                 age: 18
+        //             },
+        //             {
+        //                 id: '02',
+        //                 name: '周冬雨',
+        //                 age: 19
+        //             },
+        //             {
+        //                 id: '03',
+        //                 name: '周杰伦',
+        //                 age: 20
+        //             }
+        //         ],
+        //         filterPersons: []
+        //     },
+        //     watch: {
+        //         keyWords: {
+        //             immediate: true,  //数据未输入 即 未改变时初始化一次 渲染数据
+        //             handler(a, b) {
+        //                 console.log('输入了不同名字', a)
+        //                 // filter生成新数组，indexOf('')==0 即包含空字符
+        //                 this.filterPersons = this.persons.filter((x) => {
+        //                     return x.name.indexOf(a) !== -1
+        //                 })
+        //             }
+        //         }
+
+        //     }
+        // })
+        // 用computed实现 更好的选择
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWords: '',
+                persons: [{
+                        id: '01',
+                        name: '马冬梅',
+                        age: 18
+                    },
+                    {
+                        id: '02',
+                        name: '周冬雨',
+                        age: 19
+                    },
+                    {
+                        id: '03',
+                        name: '周杰伦',
+                        age: 20
+                    }
+                ],
+
+            },
+            computed: {
+                filterPersons() {
+                    return this.filterPersons = this.persons.filter((x) => {
+                        return x.name.indexOf(this.keyWords) !== -1
+                    })
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

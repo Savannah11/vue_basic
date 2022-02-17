@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <style>
+        .basic {
+            border: 3px solid salmon;
+            background-color: slateblue;
+        }
+
+        .happy {
+            background-color: pink;
+        }
+
+        .sad {
+            background-color: brown;
+        }
+
+        .normal {
+            background-color: cornsilk;
+        }
+
+        .a1 {
+            border-radius: 10%;
+        }
+
+        .a2 {
+            height: 100px;
+        }
+
+        .a3 {
+            color: white;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 条件渲染：
+        v-if
+            适用于：切换频率较低的场景
+            特点：不展示DOM元素直接被移除
+            v-if 可以和v-else-if、v-else一起使用，但结构不能被打断（考虑template）
+        v-show
+            适用于：切换频率较高的场景
+            特点：不展示的DOM元素未被移除，只是使用样式隐藏掉
+        备注：v-if元素获取不到的元素，v-show能获取到（v-if被移除） -->
+    <div id="root">
+        <div id="root">
+            <h2 v-show='flag'>欢迎{{name}}</h2>
+            <h2 v-if='flag1'></h2>
+            <button @click='n++'>点击+1</button>
+            <div v-show='n===1'>n=1</div>
+            <div v-show='n===2'>n=2</div>
+            <div v-show='n===3'>n=3</div>
+            <!-- else 和 else-if必须紧密相连，中间不能被打断 -->
+            <div v-if="n===1"></div>
+            <div v-else-if="n===2"></div>
+            <div v-else-if="n===3"></div>
+            <div v-else>浪漫至死不渝</div>
+            <!-- template只能用v-if v-show不行 -->
+            <template v-if="n===1">
+                <h2>hhhh</h2>
+                <h2>xixixi</h2>
+            </template>
+
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                flag: true,
+                flag1: true,
+                n: 0,
+            }
+        })
+    </script>
+</body>
+
+</html>

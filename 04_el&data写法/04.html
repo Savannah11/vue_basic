@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>el&data的2种写法</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- date&el 的2种写法：
+    el:
+        1.new Vue时，配置属性
+        2.先创建vue实例，随后再通过 vm.$mount('#demo')指定el的值
+    data:
+        1.对象式
+        2.函数式
+        （以后学习组件时，必须使用函数式，否则报错）
+    注意：vue管理的函数，不要使用箭头函数，箭头函数，this就不再是vue实例。 -->
+    <div id="demo">
+        {{name}}
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#demo',
+            data: function () {
+                return {
+                    name: 'Ann',
+                    age: 18
+                }
+            }
+
+
+
+        })
+        vm.$mount('#demo')
+    </script>
+</body>
+
+</html>

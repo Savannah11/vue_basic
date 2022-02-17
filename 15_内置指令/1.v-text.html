@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- v-text：
+        向其所在节点中渲染文本内容（插值语法更好） -->
+    <div id="root">
+        <div>{{name}}</div>
+        <div v-text='name'></div>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el: '#root',
+            data: {
+                name: 'You are beautiful!'
+            },
+
+
+        })
+    </script>
+</body>
+
+</html>

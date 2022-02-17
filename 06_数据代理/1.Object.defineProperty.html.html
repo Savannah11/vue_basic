@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineProperty</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- Object.defineProperty方法：
+    第一个参数：要填加属性的对象
+    第二个参数：要添加的属性名
+    第三个参数：配置 -->
+    <div id="demo">
+
+    </div>
+    <script type="text/javascript">
+        let person = {
+            name: 'jack',
+            sex: 'male'
+        }
+        let number = 19
+        Object.defineProperty(person, 'age', {
+            // value和 get 是同一个作用，只能同时用一个。
+            // writable和set是同一个作用，用一个。
+            // value: 18,
+            // enumerable: true, //控制属性是否可枚举，默认FALSE
+            // writable: true, // 控制属性是否可修改，默认FALSE
+            // configurable: true, //控制属性是否可删除，默认FALSE
+            //当有人读取该属性时，就调用get方法，获取相应值 
+            //不需要改变一次number值，再自行额外写代码修改age的值
+            get() {
+                return number;
+            },
+            // 2种写法
+            set: function (value) {
+                number = value
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表排序</title>
+
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div id="root">
+            <h2>人员列表</h2>
+            <input type="text" placeholder="please enter your name" v-model='keyWords'>
+            <button @click="sortType =2">age 升序</button>
+            <button @click="sortType =1">age 降序</button>
+            <button @click="sortType =0">原顺序</button>
+            <ul>
+                <!-- 遍历数组 -->
+                <li v-for="p in filterPersons" :key="p.id">{{p.name}}-{{p.age}}</li>
+                <!-- a为当前项 b为下标 c为undefined  页面不显示 key也可以为index-->
+                <!-- in 也可以改成of -->
+
+
+            </ul>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWords: '',
+                sortType: 0,
+                persons: [{
+                        id: '01',
+                        name: '马冬梅',
+                        age: 18
+                    },
+                    {
+                        id: '02',
+                        name: '周冬雨',
+                        age: 19
+                    },
+                    {
+                        id: '03',
+                        name: '周杰伦',
+                        age: 20
+                    }
+                ],
+            },
+            computed: {
+                filterPersons() {
+                    const arr = this.filterPersons = this.persons.filter((x) => {
+                        return x.name.indexOf(this.keyWords) !== -1
+                    })
+                    if (this.sortType) {
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p2.age - p1.age : p1.age - p2.age
+                        })
+                    }
+                    return arr
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

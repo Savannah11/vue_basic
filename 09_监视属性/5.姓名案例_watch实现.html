@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例——watch实现</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+
+</head>
+
+<body>
+    <!-- watch与computed的区别
+        1.computed能完成的功能，watch必定能完成
+        2.watch能完成的功能，computed不一定能完成。例如：watch可以进行异步操作
+    备注（关于函数this)：
+        1.所有被vue管理的函数，最好写成普通函数，这样this指向 vm 或 组件实例，方便操作
+        2.不是vue管理的函数（定时器回调函数，ajax回调函数）最好写成箭头函数
+            这样 this的指向才是vm 或 组件实例 -->
+    <div id="demo">
+        firstName:<input type="text" v-model='firstName'><br>
+        lastName:<input type="text" v-model='lastName'><br>
+        fullName:<span>{{fullName}}</span><br>
+        <!-- 返回函数值 fullName则是函数本身 -->
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Ann',
+                lastName: 'Smith',
+                fullName: 'Ann-Smith'
+            },
+            watch: {
+                firstName(newV, oldV) {
+                    // 普通函数setTimeout js引擎调用 this指向window
+                    // 箭头函数this,按作用域链往上找
+                    // firstName为vue管理的函数，this为vm
+                    // 故必须写成箭头函数
+                    // setTimeout(() =>{this.fullName = newV + '-' + this.lastName},1000)
+                    this.fullName = newV + '-' + this.lastName
+                },
+                lastName(newV) {
+                    this.fullName = this.firstName + '-' + newV
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

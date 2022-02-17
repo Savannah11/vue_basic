@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue监测数据改变的原理—对象</title>
+
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    1.加工2.vm._data = data
+    <div id="root">
+        <div id="root">
+            <!-- student.sex不存在  为undefined vue 不显示undefined -->
+            <!-- 直接访问sex 则报错 -->
+            <h2>学校名称：{{name}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <hr>
+            <h2>学生名字：{{student.name}}</h2>
+            <h2>学生年龄：{{student.age.rAge}}-{{student.age.sAge}}</h2>
+
+
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                // 后续追加属性 如果直接添加（如：student.sex='male') 没有通过vm做数据代理，不能响应式更新
+                // 修改对象中的属性，可以直接访问修改
+                // 应该使用Vue.set(this.student,'sex','male') vm.$set(vm.student,'sex','female')
+                //this.$set()
+                // 不能往data中的直接数据使用set（vm、vm_data）  只能给data中某一个对象中添加属性使用
+                name: 'gdufs',
+                address: 'guangdong',
+                student: {
+                    name: 'Ann',
+                    age: {
+                        rAge: 24,
+                        sAge: 23
+                    },
+                    friends: [{
+                        name: 'Jerry',
+                        age: 25
+                    }]
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

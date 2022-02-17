@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- v-once:
+        所在节点在初次动态渲染后，就被视为静态内容了。
+        以后的数据改变不会引起所在结构的更新，可以用于优化性能
+        注意：区分事件修饰符 once -->
+    <div id="root">
+        <div v-once>初始值：{{n}}</div>
+        <div>{{n}}</div>
+        <button @click='n++'>点我加1</button>
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el: '#root',
+            data: {
+                n: 0,
+                name: 'you are my sunshine',
+                age: 19
+            },
+
+
+        })
+    </script>
+</body>
+
+</html>

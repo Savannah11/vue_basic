@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 数据绑定2种：
+    1.单项数据绑定：模板反应到容器，通过事件绑定。v-bind
+    2.双向数据绑定：事件绑定+dom监听。 v-model  只能绑定表单数据 默认绑定value -->
+    <div id="demo">
+        单项数据绑定：<input type="text" :value="vbind">
+        双向数据绑定：<input type="text" v-model:value="vmodel">
+        双向数据绑定：<input type="text" v-model="vmodel">
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#demo',
+            data: {
+                vbind: '单向',
+                vmodel: '双向'
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

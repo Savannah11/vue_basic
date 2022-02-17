@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据代理概念</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 通过一个对象，对另一个对象的属性进行操作（读/写） -->
+    <div id="demo">
+
+    </div>
+    <script type="text/javascript">
+        let obj1 = {
+            name: 'Ann',
+            age: 18
+        }
+        let obj2 = {}
+        Object.defineProperty(obj2, 'age', {
+            get() {
+                return obj1.age
+            },
+            set(value) {
+                obj1.age = value
+            }
+
+        })
+    </script>
+</body>
+
+</html>

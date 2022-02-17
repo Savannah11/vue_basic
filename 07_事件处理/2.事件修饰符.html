@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- vue中的事件修饰符：
+        1.prevent:阻止默认事件
+        2.stop：阻止事件冒泡
+        3.once: 事件只触发一次
+        4.capture: 使用事件的捕获模式
+        5.self: 只有event.target是当前操作的元素时才触发条件
+        6.passive:事件的默认行为立即执行，无需等待事件回调执行完毕 
+        注意：事件修饰符可以连续写-->
+    <div id="demo">
+        <h1>{{name}},你好啊！</h1>
+        <button v-on:click=showInfo>查看信息</button>
+        <button @click=showInfo1(3,$event)>查看信息事件</button>
+        <a @click.prevenpassive=showInfo href="https://www.baidu.com/">阻止默认行为</a>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                name: "Ann"
+            },
+            methods: { //未做数据代理
+                showInfo(event) { //默认传事件参数
+
+                },
+                showInfo1(num, event) {
+                    alert('nihaoa' + num) //同时传事件以及其他参数
+                    console.log(event.target.innerText)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

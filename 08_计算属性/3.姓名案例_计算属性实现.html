@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例——计算属性实现</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+
+</head>
+
+<body>
+    <!-- 计算属性:
+        1.定义：要用的属性不存在，需要通过已有的属性进行计算得出。
+        2.原理：底层借助了Object.defineProperty()方法提供的getter setter。
+        3.get函数执行
+            （1）初次读取时执行一次
+            （2）所依赖的变量改变时，读取一次 
+        4.优势：与methods比较，内部有缓存机制，效率更高，调试方便
+                与插值语法比较，能实现更复杂的逻辑
+        5.备注：
+            （1）计算属性最终会出现在vm上，直接读取使用就可以。
+            （2）如果计算属性要被修改，则用set函数响应修改，引起依赖数据的变化。 -->
+    <div id="demo">
+        firstName:<input type="text" v-model='firstName'><br>
+        lastName:<input type="text" v-model='lastName'><br>
+        fullName:<span>{{fullName}}</span><br>
+        <!-- 返回函数值 fullName则是函数本身 -->
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Ann',
+                lastName: 'Smith'
+            },
+            computed: {
+                // 计算属性有缓存
+                fullName: {
+                    get() {
+                        // 只要有人读取fullName时，get就会被调用，返回值就是fullName的值
+                        // get调用时机：
+                        //     1.初次读取fullName
+                        //     2.所依赖的数据变化
+                        // 计算属性会拿到get方法返回值赋给属性fullName放在vm上
+                        return this.firstName + '-' + this.lastName
+                        // 不能异步计算，get需要直接获取值
+                    },
+                    set(value) {
+                        let arr = value.split('-')
+                        this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

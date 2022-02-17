@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVVM模型</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- MVVM模型：
+        M:模型
+        V:视图
+        VM：视图模型 Vue实例 -->
+    <div id="demo">
+        {{name}}
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                name: 'Ann'
+            }
+        })
+    </script>
+</body>
+
+</html>

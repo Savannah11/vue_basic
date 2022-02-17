@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表渲染</title>
+
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div id="root">
+            <h2>人员列表</h2>
+            <ul>
+                <!-- 遍历数组 -->
+                <li v-for="p in persons" :key="p.id">{{p.name}}-{{p.age}}</li>
+                <!-- a为当前项 b为下标 c为undefined  页面不显示 key也可以为index-->
+                <!-- in 也可以改成of -->
+                <li v-for="(a,b,c) in persons" :key="a.id">{{a}}-{{a.id}}-{{b}}-{{c}}</li>
+
+            </ul>
+            <ul>
+                <!-- 遍历对象 -->
+                <li v-for='(value,k) of car' :key='k'>{{k}}-{{value}}</li>
+            </ul>
+            <ul>
+                <!-- 遍历字符串 -->
+                <li v-for="(char,index) in str" :key='index'>{{index}}-{{char}}</li>
+            </ul>
+            <!-- 遍历指定次数 -->
+            <ul>
+                <!-- a从1开始  b为下标 从0开始 -->
+                <li v-for='(a,b) in 5' :key='b'>{{a}}-{{b}}</li>
+            </ul>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [{
+                        id: '01',
+                        name: 'A',
+                        age: 18
+                    },
+                    {
+                        id: '02',
+                        name: 'B',
+                        age: 19
+                    },
+                    {
+                        id: '03',
+                        name: 'C',
+                        age: 20
+                    }
+                ],
+                car: {
+                    name: 'Aodi',
+                    price: 120000,
+                    color: 'black'
+                },
+                str: 'hello'
+            }
+        })
+    </script>
+</body>
+
+</html>

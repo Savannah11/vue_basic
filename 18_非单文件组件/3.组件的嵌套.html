@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组建的嵌套</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- vue管理app组件 app组件内嵌套 -->
+    <div id="root">
+        <!-- <app></app> -->
+    </div>
+
+    <script type="text/javascript">
+        // 定义student组件  student先定义好了 才能嵌套进school
+        const student = Vue.extend({
+            template: `
+            <div>
+            <h2>学生名字：{{studentName}}</h2>
+            <h2>学生年龄：{{age}}</h2>
+            <button @click='showName'>点我提示学校</button>
+            </div>
+            `,
+            data() {
+                return {
+                    studentName: 'xiaomao',
+                    age: 19
+                }
+            }
+        })
+        // 定义school组件
+        const school = Vue.extend({
+            template: `
+            <div>
+            <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <student></student>
+            </div>
+            `,
+            data() {
+                return {
+                    schoolName: 'gdufs',
+                    address: 'guangdong'
+                }
+            },
+            components: {
+                // 组件里面components配置项中嵌套一个student
+                student
+            }
+        })
+        // 创建hello组件
+        const hello = Vue.extend({
+            template: `
+            <div>nihaoa {{name}}</div>
+            `,
+            data() {
+                return {
+                    name: 'Ann'
+                }
+            }
+        })
+        // 定义app组件
+        const app = Vue.extend({
+            template: `
+                <div>
+                    <hello></hello> 
+                    <school></school>
+                </div>
+            `,
+            components: {
+                school,
+                hello
+            }
+        })
+        const vm = new Vue({
+            template: `<app></app>`,
+            el: '#root',
+            data: {
+                msg: 'nihaoa'
+            },
+            methods: {
+                showName() {
+                    window.alert(this.schoolName)
+                }
+            },
+            // second step  注册组件（局部注册）
+            components: {
+                app
+            }
+        })
+    </script>
+</body>
+
+</html>

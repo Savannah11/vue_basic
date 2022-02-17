@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-pre</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- v-pre:
+        跳过所在节点的编译过程。
+        可利用它，跳过没有使用指令语法、插值语法的节点，会加快编译 -->
+    <div id="root">
+        <div v-pre>初始值：{{n}}</div>
+        <div>{{n}}</div>
+        <button @click='n++'>点我加1</button>
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        new Vue({
+            el: '#root',
+            data: {
+                n: 0,
+                name: 'you are my sunshine',
+                age: 19
+            },
+
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤</title>
+
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div id="root">
+            <h2>人员列表</h2>
+
+            <ul>
+                <!-- 遍历数组 -->
+                <button @click="updateMei">点击更新马冬梅</button>
+                <li v-for="p in persons" :key="p.id">{{p.name}}-{{p.age}}</li>
+                <!-- a为当前项 b为下标 c为undefined  页面不显示 key也可以为index-->
+                <!-- in 也可以改成of -->
+
+
+            </ul>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [{
+                        id: '01',
+                        name: '马冬梅',
+                        age: 18
+                    },
+                    {
+                        id: '02',
+                        name: '周冬雨',
+                        age: 19
+                    },
+                    {
+                        id: '03',
+                        name: '周杰伦',
+                        age: 20
+                    }
+                ],
+
+
+            },
+            methods: {
+                updateMei() {
+                    // this.persons[0].age = 78
+                    // 开发者工具中，先打开vue查看 改变数据  vue检测不到
+                    this.persons[0] = {
+                        id: '01',
+                        name: '马老司机',
+                        age: 76
+                    }
+                    // 索引改变数组  无法响应式更新
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

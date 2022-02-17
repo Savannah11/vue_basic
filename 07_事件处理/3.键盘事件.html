@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        keyup 按下键盘松手后，触发事件
+        keydown 按下键盘，就触发事件 
+        1.vue中常用按键别名：
+            enter、delete、esc、space、tab(必须配合keydown使用)、up、down、left、right
+        2.vue未提供的别名按键:使用按键原始的别名绑定 要转为短横线命名 kebab-case
+            CapsLock => caps-lock
+        3.系统修饰符（用法特殊）：ctrl、alt、shift、meta(windows图标)
+            （1）配合keyup使用，按下修饰键的同时，需要再按下其他键，随后释放其他键
+            （2）配合keydown使用：正常触发事件，不需要按其他按键
+        4.keyCode指定具体按键（不推荐,部分移除）
+        5.Vue.config.keyCodes.自定义
+    -->
+    <div id="demo">
+        <h1>{{name}},你好啊！</h1>
+        <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+        <input type="text" placeholder="输入任意键" @keyup="showInfo1">
+        <input type="text" placeholder="输入任意键" @keyup.ctrl.y="showInfo1">
+        <!-- 单个ctrl 或者 ctrl+特定按键 -->
+    </div>
+    <script type="text/javascript">
+        Vue.config.keyCodes.huiche = 13 //定义了一个别名按键 也不推荐
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                name: "Ann"
+            },
+            methods: { //未做数据代理
+                showInfo(event) { //默认传事件参数
+                    // vue中不需要判断，直接使用vue语法
+                    // if(event.keyCode !== 13) 
+                    console.log('按下了回车键')
+                },
+                showInfo1(e) {
+                    console.log(e.key, e.keyCode) //获取按键别名、编码
+
+                },
+
+            }
+        })
+    </script>
+</body>
+
+</html>

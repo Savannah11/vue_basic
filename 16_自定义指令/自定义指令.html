@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 需求1：v-big和 v-text类似，但会把绑定的数值放大10倍
+    需求2：v-fbind和 v-bind类似，但可以让其所绑定的input元素默认获取焦点(需要用到生命周期)
+    自定义指令总结：
+        1.定义语法：
+            （1）局部指令：
+                new Vue({
+                    directives:{指令名：配置对象}
+                })
+
+                new Vue({
+                    directives(){
+                        //简写 只编写bind update
+                    }
+                })
+            (2)全局指令：
+                Vue.directive(指令名，配置对象)
+                
+                Vue.directive(指令名，回调函数)
+        2.配置对象中常用的3个回调：
+            （1）.bind 指令与元素成功绑定时调用
+            （2）.inserted 指令所在元素被插入页面时调用
+            （3）.update 指令所在模板结构被重新解析时调用
+        3.备注：
+            （1）指令定义时不加v-，使用时要加v-。
+            （2）指令名如果是多个单词，要使用kebab-case命名方式 要用' ' 包裹 不能简写 -->
+
+    <div id="root">
+        <h2>当前的n值是：<span v-text='n'></span></h2>
+        <h2>放大十倍的n值是：<span v-big='n'></span></h2>
+        <button @click='n++'>n++</button>
+        <hr>
+        <input type="text" v-fbind:value='n'>
+
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+            directives: {
+                //其中的函数 this指向window,通过绑定传的参数获取值
+                // 自定义操作DOM
+                // big:{
+                //     k:v
+                // }
+                big(element, binding) {
+                    // 简写函数形式，默认只写了bind和update 没有inserted
+                    // 何时被调用？
+                    // 1. 指令与元素成功绑定时（ 初识）
+                    // 2. 指令所在的模板被重新解析时
+                    console.dir(element) //element是真实DOM元素
+                    console.log(element instanceof HTMLElement) //true
+                    console.log(this) //this 指向window
+                    element.innerText = binding.value * 10
+
+                },
+                fbind: {
+                    // 对象形式，可详细配置
+                    // 指令与元素成功绑定时（刚上来）
+                    bind(element, binding) {
+                        element.value = binding.value
+                    },
+                    // 指令元素被插入页面时
+                    inserted(element, binding) {
+                        element.focus() //页面绑定后，input还未出现在页面中，不能focus
+                    },
+                    // 指令所在的模板被更新解析时
+                    update(element, binding) {
+                        element.value = binding.value
+
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

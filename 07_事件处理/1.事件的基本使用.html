@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件的基本使用</title>
+    <script type="text/javascript" src="../JS/vue.js"></script>
+</head>
+
+<body>
+    <!-- 事件的基本使用：
+        1.v-on:xxx 或者@xxx 绑定事件
+        2.事件的回调配置在methods对象中，最终会在vm上
+        3.methods中配置的函数，不要使用箭头函数，否则this不是vm
+        4.methods中配置的函数，是vue管理的函数，vue指向 vm 或 组件实例对象
+        5.@click='demo(value,$event)',可传参。 -->
+    <div id="demo">
+        <h1>{{name}},你好啊！</h1>
+        <button v-on:click=showInfo>查看信息</button>
+        <button @click=showInfo1(3,$event)>查看信息事件</button>
+
+
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#demo',
+            data: {
+                name: "Ann"
+            },
+            methods: { //未做数据代理
+                showInfo(event) { //默认传事件参数
+                    alert('nihaoa')
+                    console.log(event.target.innerText)
+                    console.log(this) //this 就是vm
+                },
+                showInfo1(num, event) {
+                    alert('nihaoa' + num) //同时传事件以及其他参数
+                    console.log(event.target.innerText)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
